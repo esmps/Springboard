@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+    <h1>Posts</h1>
+    {% for post in posts %}
+        <p><a href="/posts/{{ post.id }}">{{ post.title}}</a> <small style="font-size:12px">by {{post.users.get_full_name()}} on {{post.created_at}}</small></p>
+        <b>Tags: </b>
+    {% endfor %}
+
+{% endblock %}

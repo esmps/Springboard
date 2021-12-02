@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{tag.name}}{% endblock %}
+
+{% block body %}            
+
+    <h1>{{tag.name}}</h1>
+    <div id="tag-cont">
+        <hr>
+        {% for post in posts %}
+        <p><a href="/posts/{{ post.post.id }}">{{ post.post.title }}</a></p>
+        {% endfor %}
+
+        <div class="text-center" id="user-info-buttons">
+                <a class="btn btn-warning" href="/tags/{{tag.id}}/edit">Edit</a>
+                <form action="/tags/{{tag.id}}/delete" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+        </div>
+    </div>
+{% endblock %}

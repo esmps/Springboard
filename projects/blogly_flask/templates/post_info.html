@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block body %}            
+
+    <h1>{{post.title}}</h1>
+    <div id="post-cont">
+        <p><a href="/users/{{post.user_id}}">by {{post.users.get_full_name()}}</a> on {{post.created_at}}</p>
+        <hr>
+        <div id="post-content">
+            <p>{{post.content}}</p>
+        </div>
+        <b>Tags: </b>
+        {% for tag in tags %}
+            <a href="/tags/{{tag.tags.id}}" class="badge badge-pill badge-info">{{tag.tags.name}}</a>
+        {% endfor %}
+        <div class="text-center" id="user-info-buttons">
+            <a class="btn btn-primary" href="/users/{{post.user_id}}">Back</a>
+            <a class="btn btn-warning" href="/posts/{{post.id}}/edit">Edit</a>
+            <form action="/posts/{{post.id}}/delete" method="POST">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

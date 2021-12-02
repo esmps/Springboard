@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Madlibs Form{% endblock%}
+
+{% block content %}
+<h1>Your Story:</h1>
+    <p>
+        {{text}}
+    </p>
+    <form action="/">
+        <button>New story!</button>
+    </form>
+{% endblock %}

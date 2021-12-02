@@ -1,0 +1,49 @@
+h1, h3{
+    padding: 15px;
+    text-align: center;
+}
+.pet-info-link{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+#pet-container{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin: 15px 0px 15px 0px;
+}
+.pet{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    width: 200px;
+    background-color: honeydew;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.info{
+    margin: auto auto 0px auto;
+    padding: 5px;
+    width: 100%;
+    background-color: #fff;
+}
+
+.btn{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+#pet-info{
+    width: 500px;
+    margin: auto auto;
+    text-align: center;
+}
+#edit-pet-form{
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+}

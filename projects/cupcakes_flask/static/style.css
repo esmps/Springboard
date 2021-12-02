@@ -1,0 +1,20 @@
+body{
+    background-color: aliceblue;
+}
+
+#cupcakes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto auto;
+    padding: 0px;
+}
+.cupcake-info{
+    list-style-type: none;
+    margin: auto auto;
+}
+
+h1{
+    text-align: center;
+    margin: 20px;
+}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block body %}
+<h1>Create a post</h1>
+<form method="POST">
+  <p>Title: <br> <input type="text" name="title" placeholder="Enter a title"></p>
+  <p>Content: <br> <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" placeholder="What would you like to post?"></textarea></p>
+  
+  {% for tag in tags %}
+    <input class="input-checkbox" type="checkbox" value="{{tag.name}}" id="defaultCheck1" name="tag"><label>{{tag.name}}</label>
+  {% endfor %}
+  
+  <div class="text-center">
+    <a href="/posts" class="btn btn-danger">Cancel</a>
+    <button class="btn btn-success">Save</button>
+  </div>
+</form>
+{% endblock %}

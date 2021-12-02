@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Boggle Board{% endblock %}
+
+{% block content %} 
+    <section id="timer">
+        0
+    </section>
+    <table id="boggle_board">
+        {% for element in board %}
+           <tr>
+               {% for piece in element %}
+                    <td class="boggle_piece">{{piece}}</td>
+               {% endfor %}
+           </tr>
+        {% endfor %}
+    </table>
+    <section id="nplays" class="scoreData">
+        <b>Times Played:</b> <span>{{nplays}}</span>
+    </section>
+    <section id="highscore" class="scoreData">
+        <b>Highscore:</b> <span>{{highscore}}</span>
+    </section>
+    <section id="score" class="scoreData">
+       <b>Score:</b> <span class="score">0</span>
+    </section>
+
+    <form method="POST" id="check-word">
+        <input type="text" name="guess" class="guess" placeholder="Type Guess Here...">
+        <button type="submit">Submit Guess</button>
+    </form>
+
+    <form id="play-again" action="/">
+        <button>Play Again!</button>
+    </form>
+
+    <p id="msg" class="msg">
+    </p>
+
+    <ul class="guesses">
+    </ul>
+{% endblock %}

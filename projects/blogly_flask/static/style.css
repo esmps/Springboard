@@ -1,0 +1,108 @@
+html body{
+    background-color:ghostwhite;
+    font-family: "Times New Roman", Times, serif;
+}
+h1{
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+}
+h3{
+    font-family: 'Libre Baskerville', serif;
+    text-align: left;
+
+}
+h5{
+    font-family: 'Libre Baskerville', serif;
+    width: auto;
+    text-align: right;
+}
+header{
+    background-color:rgb(11, 102, 102);
+    color: white;
+    height: 40px;
+    line-height: 20px;
+}
+header > ul{
+    list-style-type: none;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+}
+header > ul > li{
+    padding: 10px;
+    text-decoration: none;
+}
+.header-link{
+    text-decoration: none !important;
+    color: white;
+}
+.header-link:hover{
+    color: white;
+}
+header > ul > li:hover{
+    background-color: rgb(18, 170, 170)
+}
+#user-img{
+    width: 100%;
+    margin: auto auto;
+    border-radius: 50%;
+}
+#user-cont{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin: 20px 0px 20px 0px;
+}
+#img-cont{
+    flex: .75;
+}
+
+#user-info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+#user-info-buttons{
+    display: flex;
+    flex-direction: row;
+    margin: auto 0px 0px auto;
+}
+#user-info-buttons > a{
+    margin-right: 5px;
+}
+input{
+    width: 100% !important;
+}
+
+a{
+    align-items: center;
+    margin-top: 10px !important;
+}
+
+button{
+    color: black;
+    margin-top: 10px !important;
+    align-items: center;
+}
+
+.container{
+    width: 450px !important;
+    margin-top: 50px;
+}
+
+p{
+    margin-bottom: 3px !important;
+}
+#post-cont > p{
+    font-size: 15px;
+    text-align: center;
+}
+#post-content{
+    text-align: justify;
+}
+
+.input-checkbox{
+    width: 15px !important;
+}
