@@ -1,0 +1,11 @@
+# fruits
+
+pear
+banana
+apple
+
+# veggies
+
+carrot
+kale
+onion
