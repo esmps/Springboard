@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+    background-color: rgb(27, 103, 27);
+}
+button {
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    margin: 10px auto;
+}
+button:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+#deck-area {
+    margin-top: 80px;
+}
+#deck-area > img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
