@@ -19,8 +19,11 @@ router.get("/", async (req, res, next) => {
 router.get("/:code", async (req, res, next) => {
     try{
         const results = await db.query(`SELECT code, name, description FROM companies WHERE code=$1`, [req.params.code])
-        if (results.rows.length === 0) throw new ExpressError(`${req.params.code} cannot be found`, 404);
-        return res.json({company: results.rows[0]});
+        if (results.rows.length === 0) throw new ExpressError(`Company code ${req.params.code} cannot be found`, 404);
+        const invoice_res = await db.query(`SELECT id FROM invoices WHERE comp_code=$1`, [req.params.code]);
+        const company = results.rows[0];
+        company.invoices = invoice_res.rows.map(inv => inv.id);
+        return res.json({company: company});
     }catch(e){
         return next(e);
     }
@@ -48,7 +51,7 @@ router.patch("/:code", async (req, res, next) => {
             `UPDATE companies SET name=$1, description=$2
              WHERE code=$3
              RETURNING code, name, description`, [name, description, req.params.code]);
-        if (results.rowCount === 0) throw new ExpressError(`${req.params.code} cannot be found`, 404);
+        if (results.rowCount === 0) throw new ExpressError(`Company code ${req.params.code} cannot be found`, 404);
         return res.json({company: results.rows[0]})
     }catch(e){
         return next(e);
@@ -58,11 +61,8 @@ router.patch("/:code", async (req, res, next) => {
 // Deletes existing company
 router.delete("/:code", async (req, res, next) => {
     try{
-        const results = await db.query(
-            `DELETE FROM companies WHERE code=$1`,
-            [req.params.code]
-        )
-        if (results.rowCount === 0) throw new ExpressError(`${req.params.code} cannot be found`, 404);
+        const results = await db.query(`DELETE FROM companies WHERE code=$1`, [req.params.code])
+        if (results.rowCount === 0) throw new ExpressError(`Company code ${req.params.code} cannot be found`, 404);
         return res.json({status: "deleted"})
     }catch(e){
         return next(e);
