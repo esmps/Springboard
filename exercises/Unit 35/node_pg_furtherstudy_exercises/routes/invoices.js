@@ -1,15 +1,14 @@
 const db = require("../db");
+const ExpressError = require("../expressError");
 const express = require("express");
 const router = new express.Router();
-
-const ExpressError = require("../expressError");
 const { json } = require("express/lib/response");
 
 // Return list of invoices
 router.get("/", async (req, res, next) => {
     try{
-        const results = await db.query(`SELECT * FROM invoices`)
-        return res.json({invoices: results.rows })
+        const results = await db.query(`SELECT id, comp_Code, amt, paid, add_date, paid_date FROM invoices`)
+        return res.send({invoices: results.rows })
     }catch(e){
         return next(e);
     }
@@ -44,6 +43,7 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     try{
         let { comp_code, amt } = req.body;
+        if (!comp_code || !amt) throw new ExpressError("Must provide a company code AND amount.", 400);
         const results = await db.query(
             `INSERT INTO invoices (comp_code, amt)
              VALUES ($1, $2)
@@ -59,6 +59,7 @@ router.post("/", async (req, res, next) => {
 router.patch("/:id", async (req, res, next) => {
     try{
         const { amt } = req.body;
+        if (!amt) throw new ExpressError("Please provide an amount.", 400);
         const results = await db.query(
             `UPDATE invoices SET amt=$1
              WHERE id=$2
