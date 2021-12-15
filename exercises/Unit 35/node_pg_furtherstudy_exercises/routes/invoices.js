@@ -58,15 +58,31 @@ router.post("/", async (req, res, next) => {
 // Edits existing invoice
 router.patch("/:id", async (req, res, next) => {
     try{
-        const { amt } = req.body;
-        if (!amt) throw new ExpressError("Please provide an amount.", 400);
-        const results = await db.query(
-            `UPDATE invoices SET amt=$1
-             WHERE id=$2
-             RETURNING id, comp_code, amt, paid, add_date, paid_date`, [amt, req.params.id]);
-        if (results.rowCount === 0) throw new ExpressError(`Invoice ${req.params.id} cannot be found`, 404);
+        const invoice = await db.query(`SELECT id, paid, amt FROM invoices WHERE id=$1`, [req.params.id]);
+        if (invoice.rowCount === 0) throw new ExpressError(`Invoice ${req.params.id} cannot be found`, 404);
+        const { amt = invoice.rows[0].amt, paid = invoice.rows[0].paid } = req.body;
+        let results;
+        if (invoice.rows[0].paid === false && paid === true){
+            results = await db.query(
+                `UPDATE invoices SET amt=$1, paid=$2, paid_date=$3
+                 WHERE id=$4
+                 RETURNING id, comp_code, amt, paid, add_date, paid_date`, [amt, paid, new Date, req.params.id]);
+        }
+        else if (invoice.rows[0].paid === true && paid === false){
+            results = await db.query(
+                `UPDATE invoices SET amt=$1, paid=$2, paid_date=null
+                 WHERE id=$3
+                 RETURNING id, comp_code, amt, paid, add_date, paid_date`, [amt, paid, req.params.id]);
+        }
+        else{
+            results = await db.query(
+                `UPDATE invoices SET amt=$1
+                 WHERE id=$2
+                 RETURNING id, comp_code, amt, paid, add_date, paid_date`, [amt, req.params.id]);
+        }
         return res.json({invoice: results.rows[0]})
     }catch(e){
+        console.log(e);
         return next(e);
     }
 });

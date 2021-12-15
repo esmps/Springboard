@@ -83,16 +83,14 @@ describe("POST /invoices", () => {
 
 describe("PATCH /invoices/:id", () => {
     test("Update invoice amount", async () => {
-        const res = await request(app).patch(`/invoices/${newInvoice.id}`).send({ amt: 1234});
+        const res = await request(app).patch(`/invoices/${newInvoice.id}`).send({ amt: 1234, paid: true});
         expect(res.statusCode).toBe(200);
+        console.log(res.body)
         expect(res.body.invoice.amt).toEqual(1234);
-    });
-    test("Respond with 400 if no amt provided", async () => {
-        const res = await request(app).patch(`/invoices/${newInvoice.id}`);
-        expect(res.statusCode).toBe(400);
+        expect(res.body.invoice.paid).toEqual(true);
     });
     test("Respond with 404 if cannot find invoice", async () => {
-        const res = await request(app).patch(`/invoices/0`).send({ amt: 1111 });
+        const res = await request(app).patch(`/invoices/0`).send({ amt: 1111, paid: false });
         expect(res.statusCode).toBe(404);
     });
 });
