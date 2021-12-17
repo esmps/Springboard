@@ -26,9 +26,19 @@ router.get("/:code", async (req, res, next) => {
         if (invoice_res.rows.length > 0){
             company.invoices = invoice_res.rows.map(inv => inv.id);
         }
-        else{
-            company.invoices = "No invoices yet."
+        else company.invoices = "No invoices yet.";
+        const industries_res = await db.query(
+            `SELECT i.industry 
+            FROM industries AS i
+            LEFT JOIN comp_ind as ci
+            ON i.code = ci.ind_code 
+            LEFT JOIN companies as c
+            ON ci.comp_code = c.code
+            WHERE c.code=$1`, [req.params.code]);
+        if (industries_res.rows.length > 0 ){
+            company.industries = industries_res.rows.map(i => i.industry);
         }
+        else company.industries = "No industries yet.";
         return res.json({company: company});
     }catch(e){
         return next(e);
