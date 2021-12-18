@@ -41,15 +41,12 @@ class Customer {
         FROM customers WHERE id = $1`,
       [id]
     );
-
     const customer = results.rows[0];
-
     if (customer === undefined) {
       const err = new Error(`No such customer: ${id}`);
       err.status = 404;
       throw err;
     }
-
     return new Customer(customer);
   }
 
