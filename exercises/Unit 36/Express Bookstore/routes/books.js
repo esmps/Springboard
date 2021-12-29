@@ -1,5 +1,9 @@
 const express = require("express");
 const Book = require("../models/book");
+const jsonschema = require("jsonschema");
+const bookSchema = require("../bookSchema.json");
+const ExpressError = require("../expressError")
+
 
 const router = new express.Router();
 
@@ -8,8 +12,8 @@ const router = new express.Router();
 
 router.get("/", async function (req, res, next) {
   try {
-    const books = await Book.findAll(req.query);
-    return res.json({ books });
+    const books = await Book.findAll();
+    return res.json({ books: books });
   } catch (err) {
     return next(err);
   }
@@ -30,8 +34,14 @@ router.get("/:id", async function (req, res, next) {
 
 router.post("/", async function (req, res, next) {
   try {
-    const book = await Book.create(req.body);
-    return res.status(201).json({ book });
+    const result = jsonschema.validate(req.body, bookSchema);
+    if (!result.valid) {
+      let listOfErrors = result.errors.map(error => error.stack);
+      let error = new ExpressError(listOfErrors, 400);
+      return next(error);
+    }
+    const newBook = await Book.create(req.body);
+    return res.status(201).json({ book: newBook });
   } catch (err) {
     return next(err);
   }
@@ -41,8 +51,25 @@ router.post("/", async function (req, res, next) {
 
 router.put("/:isbn", async function (req, res, next) {
   try {
-    const book = await Book.update(req.params.isbn, req.body);
-    return res.json({ book });
+    const b = req.body;
+    const book = {
+      isbn: req.params.isbn,
+      amazon_url: b.amazon_url,
+      author: b.author,
+      language: b.language,
+      pages: b.pages,
+      publisher: b.publisher,
+      title: b.title,
+      year: b.year
+    }
+    const result = jsonschema.validate(book, bookSchema);
+    if (!result.valid) {
+      let listOfErrors = result.errors.map(error => error.stack);
+      let error = new ExpressError(listOfErrors, 400);
+      return next(error);
+    }
+    const updatedBook = await Book.update(book.isbn, req.body);
+    return res.json({ book: updatedBook });
   } catch (err) {
     return next(err);
   }
