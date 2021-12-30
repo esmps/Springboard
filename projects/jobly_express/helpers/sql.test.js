@@ -1,4 +1,4 @@
-const { sqlForPartialUpdate } = require("../helpers/sql");
+const { sqlForPartialUpdate } = require("./sql");
 
 describe("partialUpdate", function () {
 

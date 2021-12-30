@@ -3,6 +3,8 @@
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
+const { sqlForFilters } = require("../helpers/filters");
+
 
 /** Related functions for companies. */
 
@@ -49,15 +51,30 @@ class Company {
    * Returns [{ handle, name, description, numEmployees, logoUrl }, ...]
    * */
 
-  static async findAll() {
-    const companiesRes = await db.query(
-          `SELECT handle,
-                  name,
-                  description,
-                  num_employees AS "numEmployees",
-                  logo_url AS "logoUrl"
-           FROM companies
-           ORDER BY name`);
+  static async findAll(filters) {
+    let companiesRes;
+    if (!filters){
+      companiesRes = await db.query(
+        `SELECT handle,
+                name,
+                description,
+                num_employees AS "numEmployees",
+                logo_url AS "logoUrl"
+         FROM companies
+         ORDER BY name`);
+    }
+    else{
+      const sqlFilters = sqlForFilters(filters);
+      companiesRes = await db.query(
+        `SELECT handle,
+                name,
+                description,
+                num_employees AS "numEmployees",
+                logo_url AS "logoUrl"
+         FROM companies
+         WHERE ${sqlFilters}
+         ORDER BY name`);
+    }
     return companiesRes.rows;
   }
 

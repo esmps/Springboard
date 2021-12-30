@@ -12,6 +12,7 @@ const {
   commonAfterAll,
   u1Token,
 } = require("./_testCommon");
+const req = require("express/lib/request");
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
@@ -91,11 +92,79 @@ describe("GET /companies", function () {
               description: "Desc3",
               numEmployees: 3,
               logoUrl: "http://c3.img",
-            },
-          ],
+            }
+          ]
     });
   });
-
+  test("filter results with all filters used", async function(){
+    const resp = await request(app).get("/companies")
+      .send(
+        {
+          "minEmployees": 1,
+          "maxEmployees": 2,
+          "nameLike": "C"
+        }
+      );
+    expect(resp.body).toEqual({
+      companies:
+        [
+          {
+            handle: "c1",
+            name: "C1",
+            description: "Desc1",
+            numEmployees: 1,
+            logoUrl: "http://c1.img",
+          },
+          {
+            handle: "c2",
+            name: "C2",
+            description: "Desc2",
+            numEmployees: 2,
+            logoUrl: "http://c2.img",
+          }
+        ]
+    })
+  });
+  test("filter results with only nameLike filter used", async function(){
+    const resp = await request(app).get("/companies")
+        .send({"nameLike": "C"});
+    expect(resp.body).toEqual({
+      companies:
+        [
+          {
+            handle: "c1",
+            name: "C1",
+            description: "Desc1",
+            numEmployees: 1,
+            logoUrl: "http://c1.img",
+          },
+          {
+            handle: "c2",
+            name: "C2",
+            description: "Desc2",
+            numEmployees: 2,
+            logoUrl: "http://c2.img",
+          },
+          {
+            handle: "c3",
+            name: "C3",
+            description: "Desc3",
+            numEmployees: 3,
+            logoUrl: "http://c3.img",
+          }
+        ]
+    });
+  });
+  test("filter results with minEmployees greater than maxEmployees", async function(){
+    const resp = await request(app).get("/companies")
+      .send(
+        {
+          "minEmployees": 10,
+          "maxEmployees": 5,
+        }
+      );
+    expect(resp.statusCode).toEqual(400);
+  });
   test("fails: test next() handler", async function () {
     // there's no normal failure event which will cause this route to fail ---
     // thus making it hard to test that the error-handler works with it. This
