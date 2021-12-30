@@ -36,30 +36,33 @@ async function commonBeforeAll() {
         logoUrl: "http://c3.img",
       });
 
-  await User.register({
-    username: "u1",
-    firstName: "U1F",
-    lastName: "U1L",
-    email: "user1@user.com",
-    password: "password1",
-    isAdmin: false,
-  });
-  await User.register({
-    username: "u2",
-    firstName: "U2F",
-    lastName: "U2L",
-    email: "user2@user.com",
-    password: "password2",
-    isAdmin: false,
-  });
-  await User.register({
-    username: "u3",
-    firstName: "U3F",
-    lastName: "U3L",
-    email: "user3@user.com",
-    password: "password3",
-    isAdmin: false,
-  });
+  await User.register(
+    {
+      username: "u1",
+      firstName: "U1F",
+      lastName: "U1L",
+      email: "user1@user.com",
+      password: "password1",
+      isAdmin: false,
+    });
+  await User.register(
+    {
+      username: "u2",
+      firstName: "U2F",
+      lastName: "U2L",
+      email: "user2@user.com",
+      password: "password2",
+      isAdmin: false,
+    });
+  await User.register(
+    {
+      username: "u3",
+      firstName: "U3F",
+      lastName: "U3L",
+      email: "user3@user.com",
+      password: "password3",
+      isAdmin: false,
+    });
 }
 
 async function commonBeforeEach() {
