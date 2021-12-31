@@ -46,6 +46,9 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
  * - minEmployees
  * - maxEmployees
  * - nameLike (will find case-insensitive, partial matches)
+ * 
+ * Filters can be sent in body as {nameLike, minEmployees, maxEmployees}
+ * 
  *
  * Authorization required: none
  */
@@ -53,7 +56,7 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   try {
     let companies;
-    if (JSON.stringify(req.body) !== '{}') companies = await Company.findAll(req.body);
+    if (JSON.stringify(req.query) !== '{}') companies = await Company.findAll(req.query);
     else companies = await Company.findAll();
     return res.json({ companies });
   } catch (err) {

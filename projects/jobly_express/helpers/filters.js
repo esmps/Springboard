@@ -4,7 +4,7 @@ const { BadRequestError } = require("../expressError");
 
 //Takes filters as json
 function sqlForFilters(filters) {
-    if ((filters.minEmployees || filters.maxEmployees) && filters.minEmployees > filters.maxEmployees) throw new BadRequestError("minEmployees cannot be greater than maxEmployees");
+    if ((filters.minEmployees && filters.maxEmployees) && (parseInt(filters.minEmployees) > parseInt(filters.maxEmployees))) throw new BadRequestError("minEmployees cannot be greater than maxEmployees");
     //Creates array of data keys
     const keys = Object.keys(filters);
     //Take keys and add value in SQL syntax based on filter
