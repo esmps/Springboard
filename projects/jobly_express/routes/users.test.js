@@ -33,7 +33,7 @@ describe("POST /users", function () {
           lastName: "Last-newL",
           password: "password-new",
           email: "new@email.com",
-          isAdmin: false,
+          isAdmin: false
         })
         .set("authorization", `Bearer ${u2Token}`);
     expect(resp.statusCode).toEqual(201);
@@ -43,7 +43,7 @@ describe("POST /users", function () {
         firstName: "First-new",
         lastName: "Last-newL",
         email: "new@email.com",
-        isAdmin: false,
+        isAdmin: false
       }, token: expect.any(String),
     });
   });
@@ -57,7 +57,7 @@ describe("POST /users", function () {
           lastName: "Last-newL",
           password: "password-new",
           email: "new@email.com",
-          isAdmin: true,
+          isAdmin: true
         })
         .set("authorization", `Bearer ${u2Token}`);
     expect(resp.statusCode).toEqual(201);
@@ -67,7 +67,7 @@ describe("POST /users", function () {
         firstName: "First-new",
         lastName: "Last-newL",
         email: "new@email.com",
-        isAdmin: true,
+        isAdmin: true
       }, token: expect.any(String),
     });
   });
@@ -82,6 +82,7 @@ describe("POST /users", function () {
           password: "password-new",
           email: "new@email.com",
           isAdmin: true,
+          jobs: []
         });
     expect(resp.statusCode).toEqual(401);
   });
@@ -95,6 +96,7 @@ describe("POST /users", function () {
           password: "password-new",
           email: "new@email.com",
           isAdmin: true,
+          jobs: []
         })
         .set("authorization", `Bearer ${u1Token}`);
     expect(resp.statusCode).toEqual(401);
@@ -119,6 +121,7 @@ describe("POST /users", function () {
           password: "password-new",
           email: "not-an-email",
           isAdmin: true,
+          jobs: []
         })
         .set("authorization", `Bearer ${u2Token}`);
     expect(resp.statusCode).toEqual(400);
@@ -140,6 +143,7 @@ describe("GET /users", function () {
           lastName: "U1L",
           email: "user1@user.com",
           isAdmin: false,
+          jobs: []
         },
         {
           username: "u2",
@@ -147,6 +151,7 @@ describe("GET /users", function () {
           lastName: "U2L",
           email: "user2@user.com",
           isAdmin: true,
+          jobs: []
         },
         {
           username: "u3",
@@ -154,6 +159,7 @@ describe("GET /users", function () {
           lastName: "U3L",
           email: "user3@user.com",
           isAdmin: false,
+          jobs: []
         },
       ],
     });
@@ -197,6 +203,7 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       }
     });
   });
@@ -212,6 +219,7 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       }
     });
   });
@@ -251,6 +259,7 @@ describe("PATCH /users/:username", () => {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       },
     });
   });
@@ -268,6 +277,7 @@ describe("PATCH /users/:username", () => {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       },
     });
   });
@@ -292,7 +302,7 @@ describe("PATCH /users/:username", () => {
 
   test("not found if no such user", async function () {
     const resp = await request(app)
-        .patch(`/users/nope`)
+        .patch(`/users/no`)
         .send({
           firstName: "Nope",
         })
@@ -324,6 +334,7 @@ describe("PATCH /users/:username", () => {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        jobs: []
       },
     });
     const isSuccessful = await User.authenticate("u1", "new-password");

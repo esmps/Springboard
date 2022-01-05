@@ -100,7 +100,6 @@ router.patch("/:username", ensureLoggedIn, async function (req, res, next) {
         const errs = validator.errors.map(e => e.stack);
         throw new BadRequestError(errs);
       }
-  
       const user = await User.update(req.params.username, req.body);
       return res.json({ user });
     }else{
@@ -129,6 +128,17 @@ router.delete("/:username", ensureLoggedIn, async function (req, res, next) {
     return next(err);
   }
 });
+
+router.post("/:username/jobs/:id", ensureLoggedIn, async function (req, res, next) {
+  try{
+    if (res.locals.user.isAdmin === true || req.params.username === res.locals.user.username){
+      await User.apply({ username: req.params.username, jobID: req.params.id });
+      return res.json({ applied: req.params.id })
+    }
+  }catch(err){
+    return next(err);
+  }
+})
 
 
 module.exports = router;
