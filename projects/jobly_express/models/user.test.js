@@ -117,6 +117,7 @@ describe("findAll", function () {
         lastName: "U1L",
         email: "u1@email.com",
         isAdmin: false,
+        jobs:[ 1, 2 ]
       },
       {
         username: "u2",
@@ -124,6 +125,7 @@ describe("findAll", function () {
         lastName: "U2L",
         email: "u2@email.com",
         isAdmin: false,
+        jobs: [ 2, 3]
       },
     ]);
   });
@@ -140,6 +142,7 @@ describe("get", function () {
       lastName: "U1L",
       email: "u1@email.com",
       isAdmin: false,
+      jobs: [ 1, 2 ]
     });
   });
 
@@ -168,6 +171,7 @@ describe("update", function () {
     expect(job).toEqual({
       username: "u1",
       ...updateData,
+      jobs: [ 1, 2]
     });
   });
 
@@ -181,6 +185,7 @@ describe("update", function () {
       lastName: "U1L",
       email: "u1@email.com",
       isAdmin: false,
+      jobs: [ 1, 2]
     });
     const found = await db.query("SELECT * FROM users WHERE username = 'u1'");
     expect(found.rows.length).toEqual(1);
@@ -227,4 +232,33 @@ describe("remove", function () {
       expect(err instanceof NotFoundError).toBeTruthy();
     }
   });
+
+/************************************** apply */
+
+describe("apply", function () {
+  const newApp = {
+    username: "u1",
+    jobID: 3
+  };
+
+  test("works", async function () {
+    let user = await User.apply(newApp);
+    expect(user).toEqual(newApp);
+    const found = await db.query("SELECT * FROM applications WHERE username = 'u1' AND job_id = 3");
+    expect(found.rows.length).toEqual(1);
+    expect(found.rows[0].username).toEqual("u1");
+    expect(found.rows[0].job_id).toEqual(3);
+  });
+
+  test("bad request with dup data", async function () {
+    try {
+      await User.apply(newApp);
+      await User.apply(newApp);
+      fail();
+    } catch (err) {
+      expect(err instanceof BadRequestError).toBeTruthy();
+    }
+  });
+});
+
 });

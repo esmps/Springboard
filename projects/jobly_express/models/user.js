@@ -8,6 +8,7 @@ const {
   BadRequestError,
   UnauthorizedError,
 } = require("../expressError");
+const { getJobsAll, getJobs } = require("../helpers/jobs");
 
 const { BCRYPT_WORK_FACTOR } = require("../config.js");
 
@@ -109,10 +110,11 @@ class User {
                   email,
                   is_admin AS "isAdmin"
            FROM users
-           ORDER BY username`,
-    );
-
-    return result.rows;
+           ORDER BY username`);
+    let users = result.rows;
+      
+    users = await getJobsAll(users);
+    return users;
   }
 
   /** Given a username, return data about user.
@@ -134,10 +136,10 @@ class User {
            WHERE username = $1`,
         [username],
     );
-
-    const user = userRes.rows[0];
-
+    let user = userRes.rows[0];
     if (!user) throw new NotFoundError(`No user: ${username}`);
+
+    user = await getJobs(user);
 
     return user;
   }
@@ -182,9 +184,9 @@ class User {
                                 email,
                                 is_admin AS "isAdmin"`;
     const result = await db.query(querySql, [...values, username]);
-    const user = result.rows[0];
-
+    let user = result.rows[0];
     if (!user) throw new NotFoundError(`No user: ${username}`);
+    user = await getJobs(user);
 
     delete user.password;
     return user;
@@ -204,6 +206,31 @@ class User {
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
+
+  static async apply({ username, jobID }) {
+    const duplicateCheck = await db.query(
+        `SELECT username, job_id
+         FROM applications
+         WHERE username = $1 AND job_id = $2`,
+        [username, jobID]);
+
+    if (duplicateCheck.rows[0]) {
+      throw new BadRequestError(`Duplicate application: ${username}, ${jobID}`);
+    }
+
+    const result = await db.query(
+          `INSERT INTO applications
+          (username, job_id)
+          VALUES ($1, $2)
+          RETURNING username, job_id AS "jobID"`,
+        [username, jobID ],
+    );
+
+    const application = result.rows[0];
+
+    return application;
+  }
+
 }
 
 
