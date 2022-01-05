@@ -186,14 +186,23 @@ describe("get", function () {
       description: "Desc1",
       numEmployees: 1,
       logoUrl: "http://c1.img",
+      jobs: [
+        {
+          id: 1,
+          title: "j1",
+          salary: 100000,
+          equity: '0'
+        }
+      ]
     });
   });
 
   test("not found if no such company", async function () {
     try {
-      await Company.get("nope");
-      fail();
+      let res = await Company.get("nope");
+      // fail();
     } catch (err) {
+      console.log(err);
       expect(err instanceof NotFoundError).toBeTruthy();
     }
   });

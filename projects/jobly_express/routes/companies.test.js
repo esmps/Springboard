@@ -31,7 +31,7 @@ describe("POST /companies", function () {
     numEmployees: 10,
   };
 
-  test("ok for users", async function () {
+  test("ok for admin", async function () {
     const resp = await request(app)
         .post("/companies")
         .send(newCompany)
@@ -62,6 +62,14 @@ describe("POST /companies", function () {
         })
         .set("authorization", `Bearer ${u2Token}`);
     expect(resp.statusCode).toEqual(400);
+  });
+
+  test("bad request by unauthorized user", async function () {
+    const resp = await request(app)
+        .post("/companies")
+        .send(newCompany)
+        .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(401);
   });
 });
 
@@ -176,6 +184,14 @@ describe("GET /companies/:handle", function () {
         description: "Desc1",
         numEmployees: 1,
         logoUrl: "http://c1.img",
+        jobs: [
+          {
+            id: expect.any(Number),
+            title: "j1",
+            salary: 100000,
+            equity: '0',
+          }
+        ]
       },
     });
   });
@@ -189,6 +205,14 @@ describe("GET /companies/:handle", function () {
         description: "Desc2",
         numEmployees: 2,
         logoUrl: "http://c2.img",
+        jobs: [
+          {
+            id: expect.any(Number),
+            title: "j2",
+            salary: 200000,
+            equity: '0.09',
+          }
+        ]
       },
     });
   });

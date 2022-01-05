@@ -47,7 +47,7 @@ router.post("/", ensureLoggedIn, ensureAdmin, async function (req, res, next) {
  * - maxEmployees
  * - nameLike (will find case-insensitive, partial matches)
  * 
- * Filters can be sent in body as {nameLike, minEmployees, maxEmployees}
+ * Filters can be sent in query string as "/companies/?minEmployees=1&maxEmployees=2&nameLike=C"
  * 
  *
  * Authorization required: none

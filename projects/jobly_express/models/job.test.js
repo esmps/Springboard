@@ -129,7 +129,7 @@ describe("findAll", function () {
     ]);
   });
   test("works: hasEquity filter", async function () {
-    const filters = { hasEquity: true }
+    const filters = { hasEquity: 'true' }
     let jobs = await Job.findAll(filters);
     expect(jobs).toEqual([
     {
@@ -150,7 +150,7 @@ describe("findAll", function () {
     const filters = {
       title: "j",
       minSalary: 225000,
-      hasEquity: true
+      hasEquity: 'true'
     }
     let jobs = await Job.findAll(filters);
     expect(jobs).toEqual([

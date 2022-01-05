@@ -11,7 +11,9 @@
         "minimum": 0
       },
       "equity": {
-        "type": "string"
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1
       }
     },
     "additionalProperties": false,
