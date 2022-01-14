@@ -45,8 +45,17 @@ function ensureLoggedIn(req, res, next) {
 
 function ensureAdmin(req, res, next) {
   try{
-    if (res.locals.user.isAdmin === false) throw new UnauthorizedError("User is not an admin")
+    if (res.locals.user && res.locals.user.isAdmin === false) throw new UnauthorizedError("User is not an admin")
     return next();
+  } catch(err){
+    return next(err);
+  }
+}
+
+function ensureAdminOrLoggedIn(req, res, next) {
+  try{
+    if (res.locals.user && (res.locals.user.isAdmin === true || req.params.username === res.locals.user.username)) return next()
+    else throw new UnauthorizedError(`You must be @${req.params.username} or an admin to see this.`);
   } catch(err){
     return next(err);
   }
@@ -56,5 +65,6 @@ function ensureAdmin(req, res, next) {
 module.exports = {
   authenticateJWT,
   ensureLoggedIn,
-  ensureAdmin
+  ensureAdmin,
+  ensureAdminOrLoggedIn
 };

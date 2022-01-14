@@ -56,7 +56,7 @@ router.post("/", ensureLoggedIn, ensureAdmin, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   try {
     let companies;
-    if (JSON.stringify(req.query) !== '{}') companies = await Company.findAll(req.query);
+    if (Object.keys(req.query).length !== 0) companies = await Company.findAll(req.query);
     else companies = await Company.findAll();
     return res.json({ companies });
   } catch (err) {

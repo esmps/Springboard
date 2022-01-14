@@ -100,4 +100,6 @@ describe("ensureAdmin", function () {
     };
     ensureAdmin(req, res, next);
   });
+
+  //test if user object is empty for ensureAdmin
 });

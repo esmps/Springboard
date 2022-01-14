@@ -52,29 +52,22 @@ class Company {
    * */
 
   static async findAll(filters) {
-    let companiesRes;
-    if (!filters){
-      companiesRes = await db.query(
-        `SELECT handle,
+    let query = `SELECT handle,
                 name,
                 description,
                 num_employees AS "numEmployees",
                 logo_url AS "logoUrl"
-         FROM companies
-         ORDER BY name`);
+                FROM companies`;
+
+    if (!filters){
+      query = query + ` ORDER BY name`;
+      console.log(query)
     }
     else{
       const sqlFilters = sqlForFilters(filters);
-      companiesRes = await db.query(
-        `SELECT handle,
-                name,
-                description,
-                num_employees AS "numEmployees",
-                logo_url AS "logoUrl"
-         FROM companies
-         WHERE ${sqlFilters}
-         ORDER BY name`);
+      query = query + ` WHERE ${sqlFilters} ORDER BY name`;
     }
+    const companiesRes = await db.query(query);
     return companiesRes.rows;
   }
 
