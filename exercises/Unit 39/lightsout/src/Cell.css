@@ -3,8 +3,9 @@
   width: 100px;
   background-color: darkgray;
   cursor: pointer;
+  border-radius: 50px;
 }
 
 .Cell-lit {
-  background-color: white;
+  background-color: rgb(247, 200, 10);
 }
