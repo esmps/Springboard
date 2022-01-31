@@ -1,0 +1,16 @@
+.newToDoForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px;
+}
+.newToDoForm-textarea{
+    width: 400px;
+    height: 20px;
+    font-size: 18px;
+}
+.newToDoForm-textareaLabel{
+    font-size: 20px;
+}
