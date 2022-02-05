@@ -1,0 +1,12 @@
+.Chips{
+    background-image: url(https://m.media-amazon.com/images/I/81vJyb43URL._SL1500_.jpg);
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+    margin: none;
+}
+.Chips p{
+    margin: 0;
+    padding: 50px;
+    font-size: 2rem;
+}
