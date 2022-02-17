@@ -3,7 +3,7 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
 import "../Styles/CompanyCard.css";
 
-function CompanyCard({name, description, numEmployees, logoUrl}) {
+function CompanyCard({handle, name, description, numEmployees, logoUrl}) {
   return (
     <div className="CompanyCard">
       <Card>
@@ -12,7 +12,7 @@ function CompanyCard({name, description, numEmployees, logoUrl}) {
           <CardTitle>{name}</CardTitle>
           <CardSubtitle><i>Employees: {numEmployees}</i></CardSubtitle>
           <CardText>{description}</CardText>
-          <Button>Apply</Button>
+          <Button><a href={`/companies/${handle}`}>See jobs</a></Button>
         </CardBody>
       </Card>
     </div>

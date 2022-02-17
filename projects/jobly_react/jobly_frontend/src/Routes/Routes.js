@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import CompanyCard from "../Components/CompanyCard";
+import Company from "./Company";
 import CompanyList from "./CompanyList";
 import Jobs from "./Jobs";
 import Job from "../Components/Job";
@@ -15,7 +15,7 @@ function Routes() {
     return (
       <Switch>
         <Route path="/companies/:handle">
-            <CompanyCard />
+            <Company />
         </Route>
         <Route path="/companies">
             <CompanyList />

@@ -12,7 +12,6 @@ function CompanyList() {
 
   useEffect(() => {
     async function getCompanies() {
-      console.log(queries);
       let companies = await JoblyApi.getCompanies(queries);
       setCompanies(companies);
       setIsLoading(false);
@@ -27,6 +26,7 @@ function CompanyList() {
   const companiesList = companies.map(company => (
     <CompanyCard
       key={company.handle}
+      handle={company.handle}
       name={company.name} 
       description={company.description}
       numEmployees={company.numEmployees}
