@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import Company from "./Company";
-import Companies from "./Companies";
+import CompanyCard from "../Components/CompanyCard";
+import CompanyList from "./CompanyList";
 import Jobs from "./Jobs";
-import Job from "./Job";
+import Job from "../Components/Job";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
@@ -15,27 +15,27 @@ function Routes() {
     return (
       <Switch>
         <Route path="/companies/:handle">
-            <Company />
+            <CompanyCard />
         </Route>
         <Route path="/companies">
-            <Companies />
+            <CompanyList />
         </Route>
         <Route path="/jobs/:id">
             <Job />
         </Route>
-        <Route path="/jobs">
+        <Route exact path="/jobs">
             <Jobs />
         </Route>
-        <Route path="/login">
+        <Route exact path="/login">
             <LogIn />
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
             <SignUp />
         </Route>
-        <Route path="/profile">
+        <Route exact path="/profile">
             <Profile />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
             <Home />
         </Route>
         <Route>

@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
-import "./Styles/NavBar.css";
+import "../Styles/NavBar.css";
 
 function NavBar() {
   return (
