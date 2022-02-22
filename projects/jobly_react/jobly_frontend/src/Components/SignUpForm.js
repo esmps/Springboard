@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Input, Label} from 'reactstrap';
 import Alert from "./Alert";
 import "../Styles/AuthForms.css";
 
-function LogInForm({ login }){
+function LogInForm({ signup }){
     const history = useHistory();
     const INITIAL_STATE_FORM = {
         firstName: '',
@@ -26,7 +26,7 @@ function LogInForm({ login }){
 
     async function submitForm(evt){
         evt.preventDefault();
-        let res = await login(formData);
+        let res = await signup(formData);
         if (res.success){
             history.push("/")
         }else{
