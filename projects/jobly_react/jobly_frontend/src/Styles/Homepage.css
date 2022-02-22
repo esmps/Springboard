@@ -1,0 +1,22 @@
+.Homepage{
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+.Homepage-info{
+    text-align: center;
+    margin: auto auto;
+}
+.Homepage-info a{
+    color: white;
+    text-decoration: none;
+}
+.Homepage button{
+    margin: 5px;
+}
+.Homepage button:hover{
+    font-weight: bold;
+}
+.Homepage a:hover{
+    color: white;
+}

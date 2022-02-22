@@ -2,16 +2,15 @@ import React from 'react';
 import { Route, Switch } from "react-router-dom";
 import Company from "./Company";
 import CompanyList from "./CompanyList";
-import Jobs from "./Jobs";
-import Job from "../Components/Job";
-import LogIn from "./LogIn";
-import SignUp from "./SignUp";
+import JobList from "./JobList";
+import LogInForm from "../Components/LogInForm";
+import SignUpForm from "../Components/SignUpForm";
 import Profile from "./Profile";
-import Home from "./Home";
+import Homepage from "./Homepage";
 import NotFound from "./NotFound";
 
 
-function Routes() {
+function Routes({login, signup}) {
     return (
       <Switch>
         <Route path="/companies/:handle">
@@ -20,23 +19,20 @@ function Routes() {
         <Route path="/companies">
             <CompanyList />
         </Route>
-        <Route path="/jobs/:id">
-            <Job />
-        </Route>
         <Route exact path="/jobs">
-            <Jobs />
+            <JobList />
         </Route>
         <Route exact path="/login">
-            <LogIn />
+            <LogInForm login={login}/>
         </Route>
         <Route exact path="/signup">
-            <SignUp />
+            <SignUpForm signup={signup}/>
         </Route>
         <Route exact path="/profile">
             <Profile />
         </Route>
         <Route exact path="/">
-            <Home />
+            <Homepage />
         </Route>
         <Route>
             <NotFound />

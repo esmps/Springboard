@@ -1,0 +1,19 @@
+.Company{
+    width: 60vw;
+    margin: 50px auto 0px;
+}
+
+.Company-info{
+    padding: 5px 20px 15px;
+    margin: 0px auto 20px;
+}
+.Company-info .card{
+    background-color: aliceblue !important;
+}
+.Company-info .card-title{
+    font-weight: bold;
+}
+
+.card-title{
+    font-size: 1.5em;
+}

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import JoblyApi from "../Helpers/api";
 import CompanyCard from "../Components/CompanyCard";
-import SearchForm from '../Components/SearchForm';
-import "../Styles/CompanyList.css"
+import CompaniesSearchForm from '../Components/CompaniesSearchForm';
+import CurrUserContext from '../Context/CurrUserContext';
+import "../Styles/CompanyList.css";
+import "../Styles/Loading.css";
 
 
 function CompanyList() {
+  const {currUser} = useContext(CurrUserContext);
   const [isLoading, setIsLoading] = useState(true);
   const [companies, setCompanies] = useState([]);
   const [queries, setQueries] = useState("");
@@ -20,7 +24,7 @@ function CompanyList() {
   }, [queries]);
 
   if (isLoading) {
-    return <p>Loading &hellip;</p>;
+    return <p className="loading">Loading &hellip;</p>;
   }
 
   const companiesList = companies.map(company => (
@@ -30,17 +34,25 @@ function CompanyList() {
       name={company.name} 
       description={company.description}
       numEmployees={company.numEmployees}
-      logoUrl={company.logoUrl}
     />
   ))
   
 
   return (
-      <div className="CompanyList col-md-8 offset-md-2">
-        <SearchForm queries={queries} setQueries={setQueries}/>
-        {companiesList}
-      </div>
-  );
+    <>
+      {
+        currUser ? 
+        <>
+          <div className="CompanyList col-md-8 offset-md-2">
+            <CompaniesSearchForm setQueries={setQueries}/>
+            {companiesList}
+          </div>
+        </>
+        :
+        <Redirect to="/"></Redirect>
+      }
+    </>
+    );
   }
 
 export default CompanyList;

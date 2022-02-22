@@ -1,4 +1,4 @@
-.CompanyCard{
+.JobCard{
     padding: 5px 20px 15px;
     margin: 0px auto 20px;
 }
@@ -6,14 +6,22 @@
 .card-title{
     font-size: 1.5em;
 }
-.CompanyCard-btn a{
+.card-subtitle a{
+    text-decoration: none;
+    
+}
+
+.JobCard-btn a{
     text-decoration: none;
     color: white;
     padding: 3px;
 }
-.CompanyCard-btn a:hover{
+.JobCard-btn a:hover{
     color: white;
 }
-.CompanyCard-btn:hover{
+.JobCard-btn:hover{
     font-weight: bold;
+}
+.applied{
+    cursor: none;
 }

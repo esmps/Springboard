@@ -4,7 +4,8 @@ nav {
 }
 
 .nav-item {
-  width: 100px;
+  width: auto;
+  padding-left: 15px;
   text-align: center;
   list-style-type: none;
 }

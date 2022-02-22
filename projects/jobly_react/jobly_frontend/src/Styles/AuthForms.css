@@ -1,0 +1,26 @@
+.SignUpForm{
+    width: 600px;
+    margin: auto auto;
+}
+.SignUpFormContainer{
+    height: 90vh;
+    display: flex;
+}
+
+.LogInForm{
+    width: 600px;
+    margin: auto auto;
+}
+.LogInFormContainer{
+    height: 90vh;
+    display: flex;
+}
+
+.ProfileForm{
+    width: 600px;
+    margin: auto auto;
+}
+.ProfileFormContainer{
+    height: 90vh;
+    display: flex;
+}

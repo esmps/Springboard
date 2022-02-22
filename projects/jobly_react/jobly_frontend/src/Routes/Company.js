@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
-import { Card, CardImg, CardText, CardBody,
+import { Card, CardText, CardBody,
   CardTitle, CardSubtitle} from 'reactstrap';
 import JoblyApi from '../Helpers/api';
-// import "../Styles/Company.css";
+import "../Styles/Company.css";
 import JobCard from '../Components/JobCard';
 
 function Company() {
@@ -36,17 +36,17 @@ function Company() {
         />
         ))
 
-
     return (
-    <div className="CompanyCard">
-        <Card>
-        <CardImg top width="100%"/>
-        <CardBody>
-            <CardTitle>{company.name}</CardTitle>
-            <CardSubtitle><i>Employees: {company.numEmployees} </i></CardSubtitle>
-            <CardText>{company.description}</CardText>
-        </CardBody>
-        </Card>
+    <div className="Company">
+        <div className="Company-info">
+            <Card>
+                <CardBody>
+                    <CardTitle>{company.name}</CardTitle>
+                    <CardSubtitle><i>Employees: {company.numEmployees} </i></CardSubtitle>
+                    <CardText>{company.description}</CardText>
+                </CardBody>
+            </Card>
+        </div>
         {jobsList}
     </div>
     );

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import {useHistory} from "react-router-dom";
 import { Button, Form, FormGroup, Input} from 'reactstrap';
-import "../Styles/SearchForm.css";
+import "../Styles/CompaniesSearchForm.css";
 
-function SearchForm({ queries, setQueries}){
+function CompaniesSearchForm({ setQueries}){
     const history = useHistory();
     const INITIAL_STATE_FORM = {
         minEmployees: '',
@@ -35,7 +35,7 @@ function SearchForm({ queries, setQueries}){
     }
 
     return (
-        <div className="SearchForm">
+        <div className="CompaniesSearchForm">
             <Form onSubmit={updateQuery}>
                 <FormGroup className="d-flex">
                     <Input onChange={handleChange} type="number" name="minEmployees" id="minEmployees" placeholder="Minimum Employees" />
@@ -50,4 +50,4 @@ function SearchForm({ queries, setQueries}){
     )
 }
 
-export default SearchForm;
+export default CompaniesSearchForm;
